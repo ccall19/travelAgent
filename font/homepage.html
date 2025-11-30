@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Showcase | 智能体作品集</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-color: #3b82f6;
+            --hover-color: #60a5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-dot {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .status-dot.dev {
+            background-color: #f59e0b;
+            box-shadow: 0 0 10px #f59e0b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Agent Showcase</h1>
+            <p>探索下一代智能体应用，体验 AI 驱动的无限可能</p>
+        </header>
+
+        <div class="grid" id="projectGrid">
+            <!-- 项目卡片将通过 JS 动态生成 -->
+        </div>
+
+        <footer>
+            <p>© 2025 KungfuAgent Lab. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        /**
+         * ==========================================
+         * 项目配置区域
+         * 添加新项目时，只需在此数组中添加一个新的对象即可
+         * ==========================================
+         */
+        const projects = [
+            {
+                id: 'weather',
+                title: '天气查询助手',
+                description: '基于 LangChain 和高德 API 的智能天气查询 Agent。支持自然语言多轮对话，实时获取各地天气状况，Markdown 格式化输出。',
+                icon: '🌤️',
+                link: '/weather/font/index.html', // 确保路径正确
+                tags: ['Tool', 'Python', 'FastAPI'],
+                status: 'online', // online 或 dev
+                color: '#60a5fa'
+            },
+            {
+                id: 'kungfu',
+                title: 'Kungfu 智能客服',
+                description: '基于 RAG 技术的虚拟角色对话系统。内置《牛马大全》知识库，提供专业的领域问答服务，支持角色扮演。',
+                icon: '🥋',
+                link: 'rag.html',
+                tags: ['Chat', 'RAG', 'Roleplay'],
+                status: 'online',
+                color: '#f59e0b'
+            },
+            // 示例：未来添加的项目
+            /*
+            {
+                id: 'code-assistant',
+                title: '代码审计 Agent',
+                description: '自动分析代码仓库，生成安全报告与优化建议。',
+                icon: '💻',
+                link: '#',
+                tags: ['DevTool', 'Security'],
+                status: 'dev',
+                color: '#10b981'
+            }
+            */
+        ];
+
+        /**
+         * 渲染项目卡片
+         */
+        function renderProjects() {
+            const grid = document.getElementById('projectGrid');
+            
+            grid.innerHTML = projects.map((project, index) => {
+                // 动画延迟
+                const delay = index * 100;
+                
+                return `
+                    <div class="card" 
+                         onclick="handleCardClick('${project.link}')" 
+                         style="animation-delay: ${delay}ms; --hover-color: ${project.color}">
+                        
+                        <div class="status-dot ${project.status === 'dev' ? 'dev' : ''}" 
+                             title="${project.status === 'online' ? '运行中' : '开发中'}">
+                        </div>
+
+                        <div class="card-icon" style="color: ${project.color}">
+                            ${project.icon}
+                        </div>
+
+                        <h2>${project.title}</h2>
+                        <p>${project.description}</p>
+
+                        <div class="tags">
+                            ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handleCardClick(url) {
+            if (url && url !== '#') {
+                window.location.href = url;
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', renderProjects);
+    </script>
+</body>
+</html>
